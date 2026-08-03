@@ -1,16 +1,23 @@
 from fastapi import FastAPI
 
+from app.core.config import settings
+from app.core.logging import setup_logging
+
+setup_logging()
+
 app = FastAPI(
-    title="Global Investment Intelligence Platform",
-    description="Enterprise-grade backend for global financial data engineering",
-    version="1.0.0",
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
+    description="Enterprise Data Engineering Backend",
 )
 
 
 @app.get("/")
 def root():
     return {
-        "message": "Welcome to GIIP Backend",
+        "application": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "environment": settings.APP_ENV,
         "status": "running",
     }
 
