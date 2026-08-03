@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     DATABASE_USER: str
     DATABASE_PASSWORD: str
 
+    DB_POOL_SIZE: int
+    DB_MAX_OVERFLOW: int
+    DB_POOL_RECYCLE: int
+    DB_POOL_PRE_PING: bool
+
     # Pipeline
     ROLLING_MONTHS: int
     BATCH_SIZE: int

@@ -4,6 +4,7 @@ from app.core.config import settings
 from app.core.logging import setup_logging
 from app.core.logger import get_logger
 from app.core.middleware import RequestLoggingMiddleware
+from app.database.health import check_database_connection
 
 setup_logging()
 
@@ -19,7 +20,12 @@ app.add_middleware(RequestLoggingMiddleware)
 
 @app.on_event("startup")
 async def startup():
-    logger.info("GIIP Backend Started")
+
+    if check_database_connection():
+        logger.info("Database Connected Successfully")
+
+    else:
+        logger.error("Database Connection Failed")
 
 
 @app.on_event("shutdown")
